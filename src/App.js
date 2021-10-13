@@ -1,11 +1,25 @@
-import logo from "./logo.svg";
+import React, { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [linea1, setLinea1] = useState('');
+  const [linea2, setLinea2] = useState('');
+  const [imagen, setImagen] = useState('');
+
+  const onChangeLinea1 = function(evento){
+    setLinea1(evento.target.value);
+  }
+  const onChangeLinea2 = function(evento){
+    setLinea2(evento.target.value);
+  }
+  const onChangeImagen = function(evento){
+    setImagen(evento.target.value);
+  }
+
   return (
     <div className="App">
       {/* Selección del meme */}
-      <select>
+      <select onChange={onChangeImagen}>
         <option value="fire">Casa en llamas</option>
         <option value="futurama">Fry</option>
         <option value="history">History channel</option>
@@ -15,18 +29,18 @@ function App() {
       </select>
       <br />
       {/* Ingreso del texto */}
-      <input type="text" placeholder="Linea 1" />
+      <input type="text" placeholder="Linea 1" onChange={onChangeLinea1} />
       <br />
-      <input type="text" placeholder="Linea 2" />
+      <input type="text" placeholder="Linea 2" onChange={onChangeLinea2} />
       <br />
       <button>Exportar imagen</button>
       {/* Generar imagen y texto */}
       <div>
-        <span>Linea 1</span>
+        <span>{linea1}</span>
         <br />
-        <span>Linea 2</span>
+        <span>{linea2}</span>
         <br />
-        <img src="/img/fire.jpg" alt="Fire"/>
+        <img src={"/img/"+imagen+".jpg"} alt={imagen}/>
       </div>
     </div>
   );
