@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import html2canvas from "html2canvas";
 import "./App.css";
 
+let texto1Ingresado = false;
+let texto2Ingresado = false;
+let imagenSeleccionada = false;
 function App() {
   const [linea1, setLinea1] = useState("");
   const [linea2, setLinea2] = useState("");
@@ -9,13 +12,34 @@ function App() {
 
   const onChangeLinea1 = function (evento) {
     setLinea1(evento.target.value);
+    texto1Ingresado = chequearTextoVacio(evento.target.value);
   };
+
   const onChangeLinea2 = function (evento) {
     setLinea2(evento.target.value);
+    texto2Ingresado = chequearTextoVacio(evento.target.value);
   };
+
+  function chequearTextoVacio(texto) {
+    let textoValido;
+    texto !== "" ? (textoValido = true) : (textoValido = false);
+    return textoValido;
+  }
+
   const onChangeImagen = function (evento) {
     setImagen(evento.target.value);
+    imagenSeleccionada = true;
   };
+
+  function habilitarDescarga() {
+    let botonDesactivado;
+    if ((texto1Ingresado || texto2Ingresado) && imagenSeleccionada) {
+      botonDesactivado = false;
+    } else {
+      botonDesactivado = true;
+    }
+    return botonDesactivado;
+  }
 
   const onClickExportar = function (evento) {
     //Se ubica el div con id "meme" para convertirlo en una imagen:
@@ -35,8 +59,12 @@ function App() {
 
   return (
     <div className="App">
+      <h1>Generador de memes para IPhoneX</h1>
       {/* Selección del meme */}
       <select onChange={onChangeImagen}>
+        <option selected disabled hidden>
+          Elija una plantilla
+        </option>
         <option value="fire">Casa en llamas</option>
         <option value="futurama">Fry</option>
         <option value="history">History channel</option>
@@ -50,8 +78,16 @@ function App() {
       <br />
       <input type="text" placeholder="Linea 2" onChange={onChangeLinea2} />
       <br />
-      <button onClick={onClickExportar}>Exportar imagen</button>
-      <br /><br />
+      {/* Boton para descargar imagen */}
+      <button
+        onClick={onClickExportar}
+        id="boton-descarga"
+        disabled={habilitarDescarga()}
+      >
+        Exportar imagen
+      </button>
+      <br />
+      <br />
       {/* Generar imagen y texto */}
       <div className="meme" id="meme">
         <span>{linea1}</span>
