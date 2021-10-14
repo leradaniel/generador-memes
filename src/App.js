@@ -31,14 +31,20 @@ function App() {
     imagenSeleccionada = true;
   };
 
-  function habilitarDescarga() {
-    let botonDesactivado;
-    if ((texto1Ingresado || texto2Ingresado) && imagenSeleccionada) {
-      botonDesactivado = false;
+  function deshabilitarTextos() {
+    if (imagenSeleccionada) {
+      return false;
     } else {
-      botonDesactivado = true;
+      return true;
     }
-    return botonDesactivado;
+  }
+
+  function deshabilitarDescarga() {
+    if ((texto1Ingresado || texto2Ingresado) && imagenSeleccionada) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   const onClickExportar = function (evento) {
@@ -74,15 +80,15 @@ function App() {
       </select>
       <br />
       {/* Ingreso del texto */}
-      <input type="text" placeholder="Linea 1" onChange={onChangeLinea1} />
+      <input type="text" placeholder="Linea 1" onChange={onChangeLinea1} disabled={deshabilitarTextos()} />
       <br />
-      <input type="text" placeholder="Linea 2" onChange={onChangeLinea2} />
+      <input type="text" placeholder="Linea 2" onChange={onChangeLinea2} disabled={deshabilitarTextos()}  />
       <br />
       {/* Boton para descargar imagen */}
       <button
         onClick={onClickExportar}
         id="boton-descarga"
-        disabled={habilitarDescarga()}
+        disabled={deshabilitarDescarga()}
       >
         Exportar imagen
       </button>
