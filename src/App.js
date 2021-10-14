@@ -35,7 +35,7 @@ function App() {
       <br />
       <button>Exportar imagen</button>
       {/* Generar imagen y texto */}
-      <div>
+      <div className="meme">
         <span>{linea1}</span>
         <br />
         <span>{linea2}</span>
