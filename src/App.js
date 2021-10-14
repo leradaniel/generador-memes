@@ -51,12 +51,11 @@ function App() {
       <input type="text" placeholder="Linea 2" onChange={onChangeLinea2} />
       <br />
       <button onClick={onClickExportar}>Exportar imagen</button>
+      <br /><br />
       {/* Generar imagen y texto */}
       <div className="meme" id="meme">
         <span>{linea1}</span>
-        <br />
         <span>{linea2}</span>
-        <br />
         <img src={"/img/" + imagen + ".jpg"} alt={imagen} />
       </div>
     </div>
